@@ -10,6 +10,14 @@ class User < ActiveRecord::Base
 
   serialize :fb_data, JSON
 
+  def add_favorite(user, show_id)
+    self.favorites.create!(show_id: show_id)
+  end
+
+  def remove_favorite(user, show_id)
+    self.favorites.find_by(show_id: show_id).delete
+  end
+
   def self.from_omniauth data
     fb_id = data.uid
     if user = User.find_by(fb_id: fb_id)

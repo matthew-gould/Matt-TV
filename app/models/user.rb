@@ -10,11 +10,11 @@ class User < ActiveRecord::Base
 
   serialize :fb_data, JSON
 
-  def add_favorite(user, show_id)
+  def add_favorite(show_id)
     self.favorites.create!(show_id: show_id)
   end
 
-  def remove_favorite(user, show_id)
+  def remove_favorite(show_id)
     self.favorites.find_by(show_id: show_id).delete
   end
 

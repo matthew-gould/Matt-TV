@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
     user1 = FactoryGirl.create :user
     show1 = FactoryGirl.create :show
 
-    user1.add_favorite(user1, show1.id)
+    user1.add_favorite(show1.id)
     expect(Favorite.all.count).to eq 1
     expect(user1.shows.first.name).to eq "Show1"
     expect(show1.users.first.id).to eq 1
@@ -15,10 +15,10 @@ RSpec.describe User, type: :model do
     user1 = FactoryGirl.create :user
     show1 = FactoryGirl.create :show
 
-    user1.add_favorite(user1, show1.id)
+    user1.add_favorite(show1.id)
     
     expect(lambda {
-      user1.add_favorite(user1, show1.id)
+      user1.add_favorite(show1.id)
     }).to raise_error(ActiveRecord::RecordInvalid)
   end
 
@@ -26,10 +26,10 @@ RSpec.describe User, type: :model do
     user1 = FactoryGirl.create :user
     show1 = FactoryGirl.create :show
 
-    user1.add_favorite(user1, show1.id)
+    user1.add_favorite(show1.id)
     expect(Favorite.all.count).to eq 1
 
-    user1.remove_favorite(user1, show1.id)
+    user1.remove_favorite(show1.id)
     expect(Favorite.all.count).to eq 0
   end
 end

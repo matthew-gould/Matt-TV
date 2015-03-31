@@ -25,6 +25,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'quiet_assets'
   gem 'factory_girl_rails'
+  gem 'coveralls', require: false
 end
 
 group :test do

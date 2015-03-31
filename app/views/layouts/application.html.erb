@@ -7,14 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container>"
+
+<div class="container">
 <% if current_user %>
-  <span><%= current_user.email %></span>
-  <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+  <a rel="nofollow" data-method="delete" href="/users/sign_out"><img src="assets/logout.jpg" height="25" width="80" /></a>
 <% else %>
-  <button><%= link_to "Sign in", new_user_session_path %></button>
+  <a href="/users/auth/facebook"><img src="assets/login.jpg" height="27" width="80" /></a>
 <% end %>
 </div>
+
+  <div class="container">
+    <div class="flash">
+      <% flash.each do |name, msg| %>
+        <div class="alert alert-<%= flash_class name %>" >
+          <%= msg %>
+        </div>
+      <% end %>
+    </div>
 
 <%= yield %>
 

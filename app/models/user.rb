@@ -19,10 +19,12 @@ class User < ActiveRecord::Base
         u.password = SecureRandom.hex 64
         u.name = data.info.name
         u.email = data.info.email
-        u.github_id = data.uid
+        u.avatar = data.info.image
+        u.fb_id = data.uid
+        u.fb_token = data.credentials.token
       end
     end
   end
 end
 
-# HTTParty.get("https://graph.facebook.com/#{user.fb_id}/likes?access_token=#{user.fb_token}&limit=5000")
+# HTTParty.get("https://graph.facebook.com/#{user.fb_id}/television?access_token=#{user.fb_token}&limit=5000")

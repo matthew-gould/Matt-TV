@@ -46,12 +46,11 @@ ActiveRecord::Schema.define(version: 20150330175250) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.integer  "fb_id"
+    t.string   "fb_id"
     t.string   "fb_token"
     t.string   "zipcode"
     t.string   "provider"
     t.string   "avatar"
-    t.text     "fb_data"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

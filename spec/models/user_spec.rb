@@ -11,8 +11,21 @@ RSpec.describe User, type: :model do
     expect(show1.users.first.id).to eq 1
   end
 
+  it "different users can add the same show to favorites" do
+    user1 = FactoryGirl.create :user
+    user2 = FactoryGirl.create :user
+    show1 = FactoryGirl.create :show
+
+    user1.add_favorite(show1.id)
+    user2.add_favorite(show1.id)
+
+    expect(user1.favorites.count).to eq 1
+    expect(user2.favorites.count).to eq 1
+  end
+
   it "users cannot add a favorite that is already their favorite" do
     user1 = FactoryGirl.create :user
+    user2 = FactoryGirl.create :user
     show1 = FactoryGirl.create :show
 
     user1.add_favorite(show1.id)

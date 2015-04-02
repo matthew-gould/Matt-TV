@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+#use before each to create users/shows
+
 RSpec.describe User, type: :model do
   it "users can add favorites" do
     user1 = FactoryGirl.create :user
@@ -30,9 +32,9 @@ RSpec.describe User, type: :model do
 
     user1.add_favorite(show1.id)
     
-    expect(lambda {
+    expect{
       user1.add_favorite(show1.id)
-    }).to raise_error(ActiveRecord::RecordInvalid)
+    }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it "users can delete favorites" do

@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150330175250) do
     t.string   "time"
     t.string   "station"
     t.datetime "reminder"
+    t.text     "summary"
     t.string   "pic_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

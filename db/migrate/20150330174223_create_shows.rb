@@ -7,6 +7,7 @@ class CreateShows < ActiveRecord::Migration
       t.string :time
       t.string :station
       t.datetime :reminder
+      t.text :summary
       t.string :pic_url
 
       t.timestamps null: false

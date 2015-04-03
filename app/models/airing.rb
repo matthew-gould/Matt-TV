@@ -37,8 +37,8 @@ class Airing
     result
   end
 
-  def self.where(name)
-    Airing.find { |x| x.show == name }
+  def search(name)
+    Airing.all.find { |x| x.show == name }
   end
 end
 

@@ -6,7 +6,7 @@ require 'rails_helper'
     day = 1.day.from_now
     listing = Airing.new(network: "Fox", show: "Futurama", day: day, time: "06:00")
 
-    # expect(listing.respong_to?(:network)).to be true
+    # expect(listing.respond_to?(:network)).to be true
 
     expect(listing.network).to eq "Fox"
     expect(listing.show).to eq "Futurama"
@@ -21,4 +21,10 @@ require 'rails_helper'
   it "can show all airing objects" do
     expect(Airing.all.count).to be > 0
   end
+
+  # it "can be searched for a specific show" do
+  #   Airing.all
+    
+  #   expect(Airing.search("Dig")).to eq "Dig"
+  # end
 end

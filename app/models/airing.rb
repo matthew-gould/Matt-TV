@@ -2,32 +2,52 @@ require 'open-uri'
 
 class Airing
   
-  attr_reader :network, :show, :airs_at
+  attr_reader :network, :show, :day, :time
 
-  def initialize(network:, show:, airs_at:)
-    @network, @show, @airs_at = network, show, airs_at
+  def initialize(network:, show:, day:, time:)
+    @network, @show, @day, @time = network, show, day, time
   end
 
   def self.all
     result = []
+    day = []
     data = Nokogiri::XML(open("http://services.tvrage.com/feeds/fullschedule.php?country=US&24_format=1"))
-    days = data.xpath("//DAY")
-    days.each do |day|
-      result << airing_for_day(day)
-    end
+    
+    day << data.xpath("//DAY")[1]
+    times = data.xpath("//time")
+    shows = data.xpath("//show")
+    network = data.xpath("//network")
 
+    day.each do |day|
+      a = day['attr']
+      times = day.xpath("./time")
+      times.each do |time|
+        b = time['attr']
+        shows = time.xpath("./show")
+        shows.each do |show|
+          c = show['name'].downcase
+          network = show.xpath("./network")
+          network.each do |network|
+            d = network.text.downcase
+        result << Airing.new(day: a, time: b, show: c, network: d)
+          end
+        end
+      end
+    end
     result
   end
 
-  def self.airing_for_day(day)
-    date = day['attr']
-    Airing.new(airs_at: date, network: "Fox", show: "Futurama")
+  def self.where(name)
+    Airing.find { |x| x.show == name }
   end
-
 end
 
-# data = Nokogiri::XML(open("http://services.tvrage.com/feeds/fullschedule.php?country=US&24_format=1"))
+# .find { |x| x.show == "dig" }
+# .group_by { |r| r.show }
+# .group_by { |r| r.show }.sort_by { |k,v| -v.count }
+# .group_by(&:show)
 
-# data.xpath("//DAY").first['attr'] = date 
-# data.xpath("//time").first['attr'] = time show airs
-# data.xpath("//show").first['name'] = name of show
+# TW CAble: 61139
+
+# http://api.rovicorp.com/TVlistings/v9/listings/services/postalcode/43065/info?locale=en-US&
+# countrycode=US&apikey=7dqhgf2q82uepafse89sq3aa&sig=9400d7d0005f88bbba2a2bf37dc92dad

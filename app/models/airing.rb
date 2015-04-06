@@ -7,7 +7,7 @@ class Airing
   def initialize(network:, show:, day:, time:)
     @network, @show, @day, @time = network, show, day, time
   end
-
+  
   def self.all
     result = []
     day = []

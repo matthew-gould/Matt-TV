@@ -233,7 +233,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, Figaro.env.facebook_id, Figaro.env.facebook_secret, scope: "user_likes"
+  config.omniauth :facebook, Figaro.env.facebook_id, Figaro.env.facebook_secret, scope: "email, user_likes"
 
 #   if Rails.env == "development" || Rails.env == "test"
 #   config.omniauth :facebook, "App_ID (Development Facebook App)", "App_Secret (Development Facebook App)"

@@ -11,8 +11,8 @@
 
 <div class="container">
 <% if current_user %>
+  <a href="/profile/:user_id"><img src="<%= current_user.avatar %>"></a>
   <a rel="nofollow" data-method="delete" href="/users/sign_out"><img src="assets/logout.jpg" height="25" width="80" /></a>
-  <%= current_user.email %>
 <% else %>
   <a href="/users/auth/facebook"><img src="assets/login.jpg" height="27" width="80" /></a>
 <% end %>

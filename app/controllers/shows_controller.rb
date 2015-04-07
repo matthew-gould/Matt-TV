@@ -9,7 +9,7 @@ class ShowsController < ApplicationController
     @favorites = current_user.favorites.pluck(:show_id)
   end
 
-  private
+  # private
   
   def sort_column
     Show.column_names.include?(params[:sort]) ? params[:sort] : "name"

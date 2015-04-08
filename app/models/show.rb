@@ -36,4 +36,26 @@ class Show < ActiveRecord::Base
       Show.create!(name: show_name, premiere: show_info, day: day, time: time, station: station, summary: show_summary, pic_url: show_pic)
     end
   end
+
+  def self.get_id
+    show = Show.all
+    show.each do |x|
+      name = x.name
+      info = HTTParty.get("https://api.themoviedb.org/3/search/tv?api_key=#{Figaro.env.TMD_KEY}&query=#{name}")
+      info["results"].each do |y|
+        if y["original_name"] == name
+          id = info["results"][0]["id"]
+          x.update!(db_id: id)
+        end
+      end
+    end
+  end
+
+  def 
+
+
+
+
+
+
 end

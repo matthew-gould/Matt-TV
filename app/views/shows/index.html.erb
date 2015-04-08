@@ -16,18 +16,18 @@
       <tr>
         <td><%= show.id %></td>
         <td>
-          <% if @favorites.include? show.id %>
-            <%=form_tag favorite_path(show), method: :delete %>
-              <button class="btn btn-danger" data-id=<%= show.id %> data-action="unfavorite">Unfavorite</button>
-              </form>
-          <% else %>
-            <%=form_tag favorites_path, method: :post %>
-              <button class="btn btn-success" data-id=<%= show.id %> data-action="favorite">Favorite</button>
-              </form>
-          <% end %>
+        <% if @favorites.include? show.id %>
+          <%=form_tag favorite_path(show), method: :delete %>
+            <button class="btn btn-danger" data-id=<%= show.id %> data-action="unfavorite">Unfavorite</button>
+            </form>
+        <% else %>
+          <%=form_tag favorites_path, method: :post %>
+            <button class="btn btn-success" data-id=<%= show.id %> data-action="favorite">Favorite</button>
+            </form>
+        <% end %>
         </td>
         <td><img src="<%=show.pic_url%>"></td>
-        <td><%= show.name %></td>
+        <td><%= link_to "#{show.name}", show_path(show) %></td>
         <td><%= show.premiere %></td>
         <td><%= show.day %></td>
         <td><%= show.time %></td>

@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <!-- WRAPPER -->
@@ -49,15 +49,6 @@
                 <li>
                   <a href="/favorites">Favorites</a>
                 </li>
-                <li>
-                  <a href="page-about-us.html">About Us</a>
-                </li>
-                <li>
-                  <a href="page-privacy.html">Privacy Policy</a>
-                </li>
-                <li>
-                  <a href="page-terms.html">Terms</a>
-                </li>
               </ul>
             <li>
               <a href="page-contacts.html">CONTACT</a>
@@ -89,6 +80,35 @@
     </div>
 
 <%= yield %>
+
+  <footer>
+    <!-- COLUMN 3 -->
+            <div class="newsletter">
+                <div class="alert"></div>
+              </form>
+            </div>
+            <div class="text-center social-connect">
+              <h3 class="footer-heading">GET CONNECTED</h3>
+              <ul class="list-inline social-icons">
+                <li>
+                  <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#" class="googleplus-bg"><i class="fa fa-github"></i></a>
+                </li>
+              </ul>
+            </div>
+            <!-- END COLUMN 3 -->
+
+      <!-- COPYRIGHT -->
+      <div class="text-center copyright">
+        &copy;2015 MATT-TV. All Rights Reserved.
+      </div>
+      <!-- END COPYRIGHT -->
+    </footer>
 
 </body>
 </html>

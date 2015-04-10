@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class Airing
   
   attr_reader :network, :show, :day, :time
@@ -11,7 +9,7 @@ class Airing
   def self.all
     result = []
     day = []
-    data = Nokogiri::XML(open("http://services.tvrage.com/feeds/fullschedule.php?country=US&24_format=1"))
+    data = Nokogiri::XML(HTTParty.get("http://services.tvrage.com/feeds/fullschedule.php?country=US&24_format=1").body)
     
     day << data.xpath("//DAY")[1]
     times = data.xpath("//time")

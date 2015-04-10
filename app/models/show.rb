@@ -4,7 +4,7 @@ class Show < ActiveRecord::Base
   has_many :users, through: :favorites
 
   def populate_shows
-    data = Nokogiri::HTML(open("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/"))
+    data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
 
     # data.css('div.name a').text = "all show names (362 of them)"
     # data.css('.show_info')[0].text.squish = "premiere/air date info for first show in list"
@@ -51,6 +51,10 @@ class Show < ActiveRecord::Base
     end
   end
 
+  def self.sample_all
+    self.all.shuffle.uniq.first(6)
+  end
+
   def show_info
     # http://api.themoviedb.org/3/tv/id
     # http://api.themoviedb.org/3/tv/id/images
@@ -59,6 +63,23 @@ class Show < ActiveRecord::Base
     # http://api.themoviedb.org/3/tv/latest
     # http://api.themoviedb.org/3/tv/on_the_air
     # http://api.themoviedb.org/3/tv/airing_today
+  end
+
+  def anchor_links
+    names = []
+    last_x = nil
+    shows = Show.all
+    shows.each do |x|
+      names << x.name
+      names = names.sort
+
+      names.each do |x|
+        if x[0] != last_x
+          puts x[0]
+          last_x = x[0]
+        end 
+      end
+    end
   end
 
 

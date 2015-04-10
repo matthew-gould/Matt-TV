@@ -52,13 +52,13 @@ class Show < ActiveRecord::Base
   end
 
   def show_info
-    http://api.themoviedb.org/3/tv/id
-    http://api.themoviedb.org/3/tv/id/images
-    http://api.themoviedb.org/3/tv/id/similar
-    http://api.themoviedb.org/3/tv/id/videos
-    http://api.themoviedb.org/3/tv/latest
-    http://api.themoviedb.org/3/tv/on_the_air
-    http://api.themoviedb.org/3/tv/airing_today
+    # http://api.themoviedb.org/3/tv/id
+    # http://api.themoviedb.org/3/tv/id/images
+    # http://api.themoviedb.org/3/tv/id/similar
+    # http://api.themoviedb.org/3/tv/id/videos
+    # http://api.themoviedb.org/3/tv/latest
+    # http://api.themoviedb.org/3/tv/on_the_air
+    # http://api.themoviedb.org/3/tv/airing_today
   end
 
 

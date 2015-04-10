@@ -8,23 +8,84 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<!-- WRAPPER -->
+  <div class="wrapper">
 
-<div class="container">
-<% if current_user %>
-  <a href="/profile/:user_id"><img src="<%= current_user.avatar %>"></a>
-  <a rel="nofollow" data-method="delete" href="/users/sign_out"><img src="/assets/logout.jpg" height="25" width="80" /></a>
-<% else %>
-  <a href="/users/auth/facebook"><img src="/assets/login.jpg" height="27" width="80" /></a>
-<% end %>
-</div>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+      <!-- TOPBAR -->
+        <div class="topbar">
+          <ul class="list-inline top-nav">
+          <div class="searchbox">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control" placeholder="search ...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+            <span class="sr-only">Toggle Navigation</span>
+            <i class="fa fa-bars"></i>
+          </button>
+          <a href="/" class="navbar-brand navbar-logo navbar-logo-smaller">
+            <img src="/assets/mtv_logo.png">
+          </a>
+        </div>
 
-  <div class="container">
-    <div class="flash">
-      <% flash.each do |name, msg| %>
-        <div class="alert alert-<%= flash_class name %>" >
+        <!-- MAIN NAVIGATION -->
+        <div id="main-nav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown active">
+              <a href="/">HOME <i class="fa fa-angle-down"></i></a>
+            </li>
+            <li class="dropdown ">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">PAGES <i class="fa fa-angle-down"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a href="/shows">Shows</a>
+                </li>
+                <li>
+                  <a href="/favorites">Favorites</a>
+                </li>
+                <li>
+                  <a href="page-about-us.html">About Us</a>
+                </li>
+                <li>
+                  <a href="page-privacy.html">Privacy Policy</a>
+                </li>
+                <li>
+                  <a href="page-terms.html">Terms</a>
+                </li>
+              </ul>
+            <li>
+              <a href="page-contacts.html">CONTACT</a>
+            </li>
+          <% if current_user %>
+          <li>
+          <a rel="nofollow" data-method="delete" href="/users/sign_out"><img src="/assets/logout.jpg" height="25" width="80" /></a>
+          </li>
+          <% else %>
+          <li>
+          <a href="/users/auth/facebook"><img src="/assets/login.jpg" height="27" width="80" /></a>
+          </li>
+          <% end %>
+          </ul>
+        </div>
+        <!-- END MAIN NAVIGATION -->
+      </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+    <div class="container">
+      <div class="flash">
+        <% flash.each do |name, msg| %>
+        <div class="alert alert-<%= flash_class name %>">
           <%= msg %>
         </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
 
 <%= yield %>

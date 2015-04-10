@@ -1,5 +1,11 @@
+$.ajaxSetup( {
+      beforeSend: function ( xhr ) {
+        xhr.setRequestHeader( 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      }
+    });
+
 $(function() {
-  $("#favorite-shows-table button").click(function(e) {
+  $("button.favorite-show").click(function(e) {
     e.preventDefault();
     var $this = $(this);
     console.log("poop");

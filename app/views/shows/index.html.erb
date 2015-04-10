@@ -1,38 +1,91 @@
-<table class="table table-striped table-hover table-condensed" id="favorite-shows-table">
-  <thead>
-    <tr>
-      <th><%= link_to sortable "id" %></th>
-      <th>Favorite</th>
-      <th></th>
-      <th><%= link_to sortable "name", "Show" %></th>
-      <th><%= link_to sortable "premiere", "Premiere Date" %></th>
-      <th>Day</th>
-      <th>Time</th>
-      <th><%= link_to sortable "station" %></th>
-    </tr>
-  </thead>
-  <tbody>
+<!DOCTYPE html>
+  <head>
+  </head>
+  
+  <body>
+<!-- WRAPPER -->
+  <div class="wrapper">
+
+  <!-- HERO UNIT -->
+    <section class="hero-unit-slider">
+      <div id="carousel-hero" class="slick-carousel">
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img src="assets/futurama.jpg" alt="Slider Image">
+            <div class="carousel-caption">
+              <h2 class="hero-heading">CLICK AND GO!</h2>
+              <p class="lead">Simply click the 'Favorite' button to add a program to your personal list of tracked shows.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END HERO UNIT -->
+
+    <div class="page-content">
+      <div class="container">
     <% @shows.each do |show| %>
-      <tr>
-        <td><%= show.id %></td>
-        <td>
-        <% if @favorites.include? show.id %>
+    <div class="multiple-pricing-table">
+      <div class="col-md-4 col-sm-4">
+        <div class="pricing-item">
+          <h3 class="boxed-content-title"><img src="<%=show.pic_url%>"></h3>
+          <h4><%= link_to "#{show.name}", show_path(show) %></h4>
+          <ul class="list-unstyled plan-detail-list">
+            <li><strong><%= show.premiere %></strong></li>
+            <li><strong><%= show.day %></strong></li>
+            <li><strong><%= show.time %></strong></li>
+            <li><strong><%= show.station %></strong></li>
+          </ul>
+          <% if @favorites.include? show.id %>
           <%=form_tag favorite_path(show), method: :delete %>
-            <button class="btn btn-danger" data-id=<%= show.id %> data-action="unfavorite">Unfavorite</button>
-            </form>
-        <% else %>
+            <button class="favorite-show btn btn-danger" data-id=<%= show.id %> data-action="unfavorite">Unfavorite</button>
+          </form>
+          <% else %>
           <%=form_tag favorites_path, method: :post %>
-            <button class="btn btn-success" data-id=<%= show.id %> data-action="favorite">Favorite</button>
-            </form>
-        <% end %>
-        </td>
-        <td><img src="<%=show.pic_url%>"></td>
-        <td><%= link_to "#{show.name}", show_path(show) %></td>
-        <td><%= show.premiere %></td>
-        <td><%= show.day %></td>
-        <td><%= show.time %></td>
-        <td><%= show.station %></td>
-      </tr>
+            <button class="favorite-show btn btn-success" data-id=<%= show.id %> data-action="favorite">Favorite</button>
+          </form>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table> 
+     </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+    <!-- COLUMN 3 -->
+            <div class="newsletter">
+                <div class="alert"></div>
+              </form>
+            </div>
+            <div class="text-center social-connect">
+              <h3 class="footer-heading">GET CONNECTED</h3>
+              <ul class="list-inline social-icons">
+                <li>
+                  <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#" class="googleplus-bg"><i class="fa fa-google-plus"></i></a>
+                </li>
+              </ul>
+            </div>
+            <!-- END COLUMN 3 -->
+
+      <!-- COPYRIGHT -->
+      <div class="text-center copyright">
+        &copy;2015 MATT-TV. All Rights Reserved.
+      </div>
+      <!-- END COPYRIGHT -->
+    </footer>
+    <!-- END FOOTER -->
+
+  </div>
+  <!-- END WRAPPER -->
+
+
+  </body>
+</html>

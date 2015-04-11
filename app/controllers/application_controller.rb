@@ -6,5 +6,8 @@ class ApplicationController < ActionController::Base
 
   def home
     @shows = Show.sample_all
+    @news = News.sample_all
   end
 end
+
+# http://www.tv.com/news/marvels-daredevil-season-1-review-netflix-142808444492/

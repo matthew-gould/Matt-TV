@@ -17,5 +17,12 @@ class News
 
       all_news << News.new(title: title, pic: pic, link: link)
     end
+    return all_news
+  end
+
+  def self.sample_all
+    news_array = News.get_news
+    rand_news = news_array.shuffle.uniq.first(6)
+    return rand_news
   end
 end

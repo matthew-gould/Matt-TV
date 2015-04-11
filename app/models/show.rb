@@ -55,15 +55,68 @@ class Show < ActiveRecord::Base
     self.all.shuffle.uniq.first(6)
   end
 
-  def show_info
-    # http://api.themoviedb.org/3/tv/id
-    # http://api.themoviedb.org/3/tv/id/images
-    # http://api.themoviedb.org/3/tv/id/similar
-    # http://api.themoviedb.org/3/tv/id/videos
+  def self.get_info(show)
+    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=611e05c0e68def1ee46e6cb18f643617&append_to_response=images,videos,similar")
+    return data
+  end
+
+  def self.show_info(show)
+    data = self.get_info(show)
+    show_info = {}
+    
+    show_info["genres"] = data["genres"]
+    show_info["homepage"] = data["homepage"]
+    show_info["overview"] = data["overview"].squish
+    show_info["last_air_date"] = data["last_air_date"]
+    show_info["status"] = data["status"]
+    show_info["poster_path"] = data["poster_path"]
+
+    return show_info
+    # show_info["genres"][0]["name"]
+    # show_info["homepage"]
+    # show_info["overview"]
+    # show_info["last_air_date"]
+    # show_info["status"]
+    # show_info["poster_path"]
+  end
+
+  def self.season_info(show)
+    data = self.get_info(show)
+
+    season_info = data["seasons"]
+    return season_info
+
+      # season_info["air_date"] = season["air_date"]
+      # season_info["poster_path"] = season["poster_path"]
+      # season_info["season_number"] = season["season_number"]
+      # season_info["episode_count"] = season["episode_count"]
+  end
+
+  def self.get_images(show)
+    backdrops = []
+    data = self.get_info(show)
+
+    # make the backdrops links to the mage.tmdb.org/t/p/w1280/8F055jvxGoaFuXiCJfN6ySf9gnB.jpg version of the pic
+    
+    data["images"]["backdrops"].each do |x|
+      backdrops << x["file_path"]
+    end
+    return backdrops
+  end
+
+  def self.get_videos(show)
+    videos = []
+    data = self.get_info(show)
+
+    data["videos"]["results"].each do |x|
+      videos << x["key"]
+    end
+    return videos
+  end
+
     # http://api.themoviedb.org/3/tv/latest
     # http://api.themoviedb.org/3/tv/on_the_air
     # http://api.themoviedb.org/3/tv/airing_today
-  end
 
   def anchor_links
     names = []
@@ -75,7 +128,7 @@ class Show < ActiveRecord::Base
 
       names.each do |x|
         if x[0] != last_x
-          puts x[0]
+          true
           last_x = x[0]
         end 
       end

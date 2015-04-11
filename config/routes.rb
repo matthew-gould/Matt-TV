@@ -7,8 +7,4 @@ Rails.application.routes.draw do
   
   resources :favorites, only: [:create, :index, :destroy]
 
-  # get 'profile/:user_id'       => 'profiles#show'
-  # post 'profile/;user_id'      => 'profiles#update'
-  # get 'profile/:user_id/edit'  => 'profiles#edit'
-
 end

@@ -12,14 +12,21 @@
         <section>
           <div class="row">
             <div class="col-md-6">
+            <% if @season.last["poster_path"] != nil %>
+            <img src="http://image.tmdb.org/t/p/w300<%= @season.last["poster_path"] %>"><hr>
+            <% else %>
+            <img src=<%= @show.pic_url %>><hr>
+            <% end %>
               <p>Completely monetize cooperative alignments vis-a-vis empowered leadership skills. Assertively empower maintainable intellectual capital with extensive total linkage. Enthusiastically synthesize bleeding-edge intellectual capital after market-driven initiatives. Enthusiastically enhance turnkey architectures before backward-compatible deliverables. Collaboratively drive virtual solutions vis-a-vis multimedia based data. Dynamically transition emerging leadership skills after long-term high-impact human capital. Competently reintermediate 24/365 quality vectors rather than sticky bandwidth. Authoritatively.</p>
               <p>Professionally facilitate orthogonal leadership whereas customer directed testing procedures. Credibly incubate ubiquitous human capital without efficient expertise. Intrinsicly optimize ubiquitous web-readiness through standards compliant metrics. Intrinsicly drive ethical technologies whereas installed base interfaces. Credibly expedite backward-compatible e-markets before viral opportunities.</p>
             </div>
+            <% if @vids.count != 0 %>
             <div class="col-md-6">
               <div class="featured-video">
-                <iframe src="//player.vimeo.com/video/40056491"></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @vids.sample %>" frameborder="0" allowfullscreen></iframe>
               </div>
             </div>
+            <% end %>
           </div>
           <br><hr>
           <h2 class="section-heading">OUR MISSION</h2>

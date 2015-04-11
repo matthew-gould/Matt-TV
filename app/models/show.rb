@@ -56,7 +56,7 @@ class Show < ActiveRecord::Base
   end
 
   def self.get_info(show)
-    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=611e05c0e68def1ee46e6cb18f643617&append_to_response=images,videos,similar")
+    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=611e05c0e68def1ee46e6cb18f643617&append_to_response=images,videos")
     return data
   end
 

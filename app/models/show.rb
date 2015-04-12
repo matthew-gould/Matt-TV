@@ -96,12 +96,12 @@ class Show < ActiveRecord::Base
     backdrops = []
     data = self.get_info(show)
 
-    # make the backdrops links to the mage.tmdb.org/t/p/w1280/8F055jvxGoaFuXiCJfN6ySf9gnB.jpg version of the pic
+    # make the backdrops links to the image.tmdb.org/t/p/w1280/8F055jvxGoaFuXiCJfN6ySf9gnB.jpg version of the pic
     
     data["images"]["backdrops"].each do |x|
       backdrops << x["file_path"]
     end
-    return backdrops
+    return backdrops.shuffle.uniq.first(9)
   end
 
   def self.get_videos(show)

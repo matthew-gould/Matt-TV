@@ -11,6 +11,18 @@
 *
 *	############################################################################
 */
+
+/*.image-container {
+  width: 1920px;
+  height: 500px;
+  background-size: cover;
+  background-image:"http://i.stack.imgur.com/2OrtT.jpg";
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  float:top;
+}
+<div class="image-container" style="background-image: url(<%= x.thumbnail %>);">*/
+
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 13px;

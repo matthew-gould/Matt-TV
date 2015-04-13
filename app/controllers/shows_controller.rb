@@ -5,6 +5,8 @@ class ShowsController < ApplicationController
     @favorites = current_user.favorites.pluck(:show_id)
     @info = Show.show_info(@show)
     @season = Show.season_info(@show)
+    n = @season.last["season_number"]
+    @latest = Show.latest_season(@show, n)
     @pics = Show.get_images(@show)
     @vids = Show.get_videos(@show)
   end

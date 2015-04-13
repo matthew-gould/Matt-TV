@@ -3,6 +3,19 @@ class Show < ActiveRecord::Base
   has_many :favorites
   has_many :users, through: :favorites
 
+  include PgSearch
+  pg_search_scope(:search_name,
+    :against => { 
+      :name => 'A', 
+      :time => 'C', 
+      :station => 'B', 
+      :summary => 'D'
+      },
+    :using => [:tsearch, :dmetaphone, :trigrams],
+    :ignoring => :accents)
+
+    # Show.search_title
+
   def populate_shows
     data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
 
@@ -41,7 +54,7 @@ class Show < ActiveRecord::Base
     show = Show.all
     show.each do |x|
       name = x.name
-      info = HTTParty.get("https://api.themoviedb.org/3/search/tv?api_key=#{Figaro.env.TMD_KEY}&query=#{name}")
+      info = HTTParty.get("https://api.themoviedb.org/3/search/tv?api_key=#{Figaro.env.tmd_key}&query=#{name}")
       info["results"].each do |y|
         if y["original_name"] == name
           id = info["results"][0]["id"]
@@ -56,7 +69,7 @@ class Show < ActiveRecord::Base
   end
 
   def self.get_info(show)
-    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=611e05c0e68def1ee46e6cb18f643617&append_to_response=images,videos")
+    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=#{Figaro.env.tmd_key}&append_to_response=images,videos")
     return data
   end
 
@@ -112,6 +125,14 @@ class Show < ActiveRecord::Base
       videos << x["key"]
     end
     return videos
+  end
+
+  def self.latest_season(show, season_number)
+    season_info = {}
+    data = HTTParty.get("http://api.themoviedb.org/3/tv/#{show.db_id}/season/#{season_number}?api_key=#{Figaro.env.tmd_key}")
+
+    season_info = data["episodes"].map {|episode| {"episode_number" => episode["episode_number"], "name" => episode["name"], "air_date" => episode["air_date"]}}
+    return season_info
   end
 
     # http://api.themoviedb.org/3/tv/latest

@@ -31,7 +31,7 @@
           <h3 class="boxed-content-title"><img src="<%=show.pic_url%>"></h3>
           <h4><%= link_to "#{show.name}", show_path(show) %></h4>
           <ul class="list-unstyled plan-detail-list">
-            <li><strong><%= show.premiere %></strong></li>
+            <li><strong><%= truncate(show.premiere) %></strong></li>
             <li><strong><%= show.day %></strong></li>
             <li><strong><%= show.time %></strong></li>
             <li><strong><%= show.station %></strong></li>

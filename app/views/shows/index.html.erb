@@ -26,7 +26,7 @@
       <div class="container">
     <% @shows.each do |show| %>
     <div class="multiple-pricing-table">
-      <div class="col-md-4 col-sm-4">
+      <div class="col-md-4">
         <div class="pricing-item">
           <h3 class="boxed-content-title"><img src="<%=show.pic_url%>"></h3>
           <h4><%= link_to "#{show.name}", show_path(show) %></h4>

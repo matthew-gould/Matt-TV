@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413185642) do
+ActiveRecord::Schema.define(version: 20150413215053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150413185642) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "db_id"
+    t.json     "actors"
   end
 
   create_table "users", force: :cascade do |t|

@@ -11,18 +11,11 @@ class Show < ActiveRecord::Base
       :station => 'B', 
       :summary => 'D'
       },
-    :using => [:tsearch, :dmetaphone, :trigrams],
-    :ignoring => :accents)
+    :using => [:tsearch, :dmetaphone, :trigram])
+    
 
-    # Show.search_title
-
-  def populate_shows
+  def populate_shows #refactor this with an each
     data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
-
-    # data.css('div.name a').text = "all show names (362 of them)"
-    # data.css('.show_info')[0].text.squish = "premiere/air date info for first show in list"
-    # data.css('.write-up')[0].text.squish = "summary of show"
-    # data.css('.image-wrapper img')[0]['src'] = "link to jpg"
 
     181.times do |x|
       show_name = data.css('div.name a')[x].text
@@ -64,6 +57,16 @@ class Show < ActiveRecord::Base
     end
   end
 
+  def self.get_actors
+    show = Show.all
+    show.each do |x|
+      show_id = x.db_id
+      info = HTTParty.get("https://api.themoviedb.org/3/tv/#{show_id}/credits?api_key=#{Figaro.env.tmd_key}")
+      actors = info["cast"].map {|actor| {"character" => actor["character"], "actor" => actor["name"]}}
+      x.update!(actors: actors)
+    end
+  end
+
   def self.sample_all
     self.all.shuffle.uniq.first(6)
   end
@@ -85,12 +88,6 @@ class Show < ActiveRecord::Base
     show_info["poster_path"] = data["poster_path"]
 
     return show_info
-    # show_info["genres"][0]["name"]
-    # show_info["homepage"]
-    # show_info["overview"]
-    # show_info["last_air_date"]
-    # show_info["status"]
-    # show_info["poster_path"]
   end
 
   def self.season_info(show)
@@ -98,19 +95,12 @@ class Show < ActiveRecord::Base
 
     season_info = data["seasons"]
     return season_info
-
-      # season_info["air_date"] = season["air_date"]
-      # season_info["poster_path"] = season["poster_path"]
-      # season_info["season_number"] = season["season_number"]
-      # season_info["episode_count"] = season["episode_count"]
   end
 
   def self.get_images(show)
     backdrops = []
     data = self.get_info(show)
 
-    # make the backdrops links to the image.tmdb.org/t/p/w1280/8F055jvxGoaFuXiCJfN6ySf9gnB.jpg version of the pic
-    
     data["images"]["backdrops"].each do |x|
       backdrops << x["file_path"]
     end
@@ -134,10 +124,6 @@ class Show < ActiveRecord::Base
     season_info = data["episodes"].map {|episode| {"episode_number" => episode["episode_number"], "name" => episode["name"], "air_date" => episode["air_date"]}}
     return season_info
   end
-
-    # http://api.themoviedb.org/3/tv/latest
-    # http://api.themoviedb.org/3/tv/on_the_air
-    # http://api.themoviedb.org/3/tv/airing_today
 
   def anchor_links
     names = []

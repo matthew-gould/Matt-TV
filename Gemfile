@@ -16,6 +16,8 @@ gem 'slim-rails'
 gem 'httparty'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'pg'
+gem 'pg_search'
 
 group :development, :test do
   gem 'spring'

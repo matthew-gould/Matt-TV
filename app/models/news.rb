@@ -22,7 +22,7 @@ class News
 
   def self.sample_all
     news_array = News.get_news
-    rand_news = news_array.shuffle.uniq.first(6)
+    rand_news = news_array.shuffle.uniq.first(8)
     return rand_news
   end
 end

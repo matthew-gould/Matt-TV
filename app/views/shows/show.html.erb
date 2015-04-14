@@ -11,10 +11,10 @@
       <div id="carousel-hero" class="slick-carousel">
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <img src="/assets/walkingdead3.jpg" alt="/assets/walkingdead.jpg">
+            <img src="/assets/americans.jpg" alt="/assets/walkingdead.jpg">
             <div class="carousel-caption">
               <h2 class="hero-heading">EXPLORE</h2>
-              <p class="lead">Read up on new shows and find a new obsession</p>
+              <p class="lead">Research new shows and discover your next obsession</p>
             </div>
           </div>
         </div>
@@ -23,9 +23,7 @@
     <!-- END HERO UNIT -->
 
 <!-- PAGE CONTENT -->
-    <div class="page-content">
       <div class="container">
-        <section>
           <div class="row">
             <div class="col-md-6">
             <% if @season.last["poster_path"] != nil %>
@@ -33,11 +31,15 @@
             <% else %>
             <img src=<%= @show.pic_url %>><hr>
             <% end %>
-            <% if @season.last["air_date"] >= Time.now %> == true
-              <p>Premieres <%= @season.last["air_date"] %></p> 
+            <% if @season.last["air_date"] >= Time.now %>
+              <p><strong>Premieres <%= @season.last["air_date"] %></strong></p> 
             <% end %>
               <p><strong>Airs <%= @show.day %>s at <%= @show.time %>  on <%= @show.station %></strong></p>
               <p><%= @info["overview"] %></p>
+              <% if @info["homepage"] != "" %>
+              <p>See more at <a href=<%= @info["homepage"] %> target="_blank"><%= @info["homepage"] %>.</a></p>
+              <% end %>
+
               <% if @favorites.include? @show.id %>
           <%=form_tag favorite_path(@show), method: :delete %>
             <button class="favorite-show btn btn-danger" data-id=<%= @show.id %> data-action="unfavorite">Unfavorite</button>
@@ -55,9 +57,20 @@
               </div>
             </div>
             <% end %>
-          </div>
-          <br><hr>
-        </section>
+          </div><hr>
+
+          <p><strong>CURRENT SEASON INFO:</strong></p>
+          <div class="row">
+            <ul class="list-inline list-client-logo">
+            <% @latest.each do |x| %>
+            <div class="col-sm-3">
+              <li style="padding-bottom: 20px"><strong>Episode:</strong> <%= x["episode_number"] %><br><strong>Name:</strong> <%= truncate(x["name"]) %><br><strong>Air Date:</strong> <%= x["air_date"] %></li>
+              </div>
+            <% end %>
+            </ul>
+            </div>
+      </div><hr>
+        
 
         <!-- OUR CLIENTS -->
           <% if @pics.count != 0 %>
@@ -66,18 +79,18 @@
               <h2 class="section-heading">PICTURES</h2>
               <ul class="list-inline list-client-logo">
               <% @pics.each do |img| %>
+              <div class="col-sm-4">
                 <li>
-                  <a href="http://image.tmdb.org/t/p/original<%= img %>" target="_blank"><img src="http://image.tmdb.org/t/p/w300<%= img %>" style="PADDING-BOTTOM: 20px"></a>
+                  <a href="http://image.tmdb.org/t/p/original<%= img %>" target="_blank"><img src="http://image.tmdb.org/t/p/w300<%= img %>" style="padding-bottom: 20px"></a>
                 </li>
+                </div>
                 <% end %>
               </ul>
             </div>
           </section>
           <% end %>
           <!-- END OUR CLIENTS -->
-
-      </div>
-    </div>
+    
     <!-- END PAGE CONTENT -->
 
   </div>

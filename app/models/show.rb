@@ -3,13 +3,19 @@ class Show < ActiveRecord::Base
   has_many :favorites
   has_many :users, through: :favorites
 
-  def populate_shows
-    data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
+  include PgSearch
+  pg_search_scope(:search_name,
+    :against => { 
+      :name => 'A', 
+      :actors => 'B', 
+      :station => 'C', 
+      :summary => 'D'
+      },
+    :using => [:tsearch, :dmetaphone, :trigram])
+    
 
-    # data.css('div.name a').text = "all show names (362 of them)"
-    # data.css('.show_info')[0].text.squish = "premiere/air date info for first show in list"
-    # data.css('.write-up')[0].text.squish = "summary of show"
-    # data.css('.image-wrapper img')[0]['src'] = "link to jpg"
+  def populate_shows #refactor this with an each ["item-box"]
+    data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
 
     181.times do |x|
       show_name = data.css('div.name a')[x].text
@@ -41,7 +47,7 @@ class Show < ActiveRecord::Base
     show = Show.all
     show.each do |x|
       name = x.name
-      info = HTTParty.get("https://api.themoviedb.org/3/search/tv?api_key=#{Figaro.env.TMD_KEY}&query=#{name}")
+      info = HTTParty.get("https://api.themoviedb.org/3/search/tv?api_key=#{Figaro.env.tmd_key}&query=#{name}")
       info["results"].each do |y|
         if y["original_name"] == name
           id = info["results"][0]["id"]
@@ -51,12 +57,34 @@ class Show < ActiveRecord::Base
     end
   end
 
+  def self.get_actors
+    show = Show.all
+    show.each do |x|
+      show_id = x.db_id
+      info = HTTParty.get("https://api.themoviedb.org/3/tv/#{show_id}/credits?api_key=#{Figaro.env.tmd_key}")
+      info["cast"].map {|actor| {"character" => actor["character"], "actor" => actor["name"]}}
+      x.update!(actors: actors)
+    end
+  end
+
+  def self.get_summary
+    show = Show.all
+    show.each do |x|
+      if x.summary == ""
+        show_id = x.db_id
+        info = HTTParty.get("https://api.themoviedb.org/3/tv/#{x.db_id}?api_key=#{Figaro.env.tmd_key}")
+        summary = info["overview"].squish
+        x.update!(summary: summary)
+      end
+    end
+  end
+
   def self.sample_all
     self.all.shuffle.uniq.first(6)
   end
 
   def self.get_info(show)
-    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=611e05c0e68def1ee46e6cb18f643617&append_to_response=images,videos")
+    data = HTTParty.get("https://api.themoviedb.org/3/tv/#{show.db_id}?api_key=#{Figaro.env.tmd_key}&append_to_response=images,videos")
     return data
   end
 
@@ -72,12 +100,6 @@ class Show < ActiveRecord::Base
     show_info["poster_path"] = data["poster_path"]
 
     return show_info
-    # show_info["genres"][0]["name"]
-    # show_info["homepage"]
-    # show_info["overview"]
-    # show_info["last_air_date"]
-    # show_info["status"]
-    # show_info["poster_path"]
   end
 
   def self.season_info(show)
@@ -85,19 +107,12 @@ class Show < ActiveRecord::Base
 
     season_info = data["seasons"]
     return season_info
-
-      # season_info["air_date"] = season["air_date"]
-      # season_info["poster_path"] = season["poster_path"]
-      # season_info["season_number"] = season["season_number"]
-      # season_info["episode_count"] = season["episode_count"]
   end
 
   def self.get_images(show)
     backdrops = []
     data = self.get_info(show)
 
-    # make the backdrops links to the image.tmdb.org/t/p/w1280/8F055jvxGoaFuXiCJfN6ySf9gnB.jpg version of the pic
-    
     data["images"]["backdrops"].each do |x|
       backdrops << x["file_path"]
     end
@@ -114,24 +129,11 @@ class Show < ActiveRecord::Base
     return videos
   end
 
-    # http://api.themoviedb.org/3/tv/latest
-    # http://api.themoviedb.org/3/tv/on_the_air
-    # http://api.themoviedb.org/3/tv/airing_today
+  def self.latest_season(show, season_number)
+    season_info = {}
+    data = HTTParty.get("http://api.themoviedb.org/3/tv/#{show.db_id}/season/#{season_number}?api_key=#{Figaro.env.tmd_key}")
 
-  def anchor_links
-    names = []
-    last_x = nil
-    shows = Show.all
-    shows.each do |x|
-      names << x.name
-      names = names.sort
-
-      names.each do |x|
-        if x[0] != last_x
-          true
-          last_x = x[0]
-        end 
-      end
-    end
+    season_info = data["episodes"].map {|episode| {"episode_number" => episode["episode_number"], "name" => episode["name"], "air_date" => episode["air_date"]}}
+    return season_info
   end
 end

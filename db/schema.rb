@@ -11,13 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408144706) do
+ActiveRecord::Schema.define(version: 20150413215053) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "shows", force: :cascade do |t|
@@ -32,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150408144706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "db_id"
+    t.json     "actors"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,12 +64,10 @@ ActiveRecord::Schema.define(version: 20150408144706) do
     t.string   "name"
     t.string   "fb_id"
     t.string   "fb_token"
-    t.string   "zipcode"
-    t.string   "provider"
     t.string   "avatar"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

@@ -14,7 +14,7 @@
             <img src="/assets/americans.jpg" alt="/assets/walkingdead.jpg">
             <div class="carousel-caption">
               <h2 class="hero-heading">EXPLORE</h2>
-              <p class="lead">Read up on new shows and find a new obsession</p>
+              <p class="lead">Research new shows and discover your next obsession</p>
             </div>
           </div>
         </div>
@@ -36,6 +36,9 @@
             <% end %>
               <p><strong>Airs <%= @show.day %>s at <%= @show.time %>  on <%= @show.station %></strong></p>
               <p><%= @info["overview"] %></p>
+              <% if @info["homepage"] != "" %>
+              <p>See more at <a href=<%= @info["homepage"] %> target="_blank"><%= @info["homepage"] %>.</a></p>
+              <% end %>
 
               <% if @favorites.include? @show.id %>
           <%=form_tag favorite_path(@show), method: :delete %>

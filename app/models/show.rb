@@ -7,14 +7,14 @@ class Show < ActiveRecord::Base
   pg_search_scope(:search_name,
     :against => { 
       :name => 'A', 
-      :time => 'C', 
-      :station => 'B', 
+      :actors => 'B', 
+      :station => 'C', 
       :summary => 'D'
       },
     :using => [:tsearch, :dmetaphone, :trigram])
     
 
-  def populate_shows #refactor this with an each
+  def populate_shows #refactor this with an each ["item-box"]
     data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
 
     181.times do |x|
@@ -62,7 +62,7 @@ class Show < ActiveRecord::Base
     show.each do |x|
       show_id = x.db_id
       info = HTTParty.get("https://api.themoviedb.org/3/tv/#{show_id}/credits?api_key=#{Figaro.env.tmd_key}")
-      actors = info["cast"].map {|actor| {"character" => actor["character"], "actor" => actor["name"]}}
+      info["cast"].map {|actor| {"character" => actor["character"], "actor" => actor["name"]}}
       x.update!(actors: actors)
     end
   end
@@ -123,22 +123,5 @@ class Show < ActiveRecord::Base
 
     season_info = data["episodes"].map {|episode| {"episode_number" => episode["episode_number"], "name" => episode["name"], "air_date" => episode["air_date"]}}
     return season_info
-  end
-
-  def anchor_links
-    names = []
-    last_x = nil
-    shows = Show.all
-    shows.each do |x|
-      names << x.name
-      names = names.sort
-
-      names.each do |x|
-        if x[0] != last_x
-          true
-          last_x = x[0]
-        end 
-      end
-    end
   end
 end

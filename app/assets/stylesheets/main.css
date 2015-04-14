@@ -23,6 +23,15 @@
 }
 <div class="image-container" style="background-image: url(<%= x.thumbnail %>);">*/
 
+div.anchor-tags
+{
+    position:fixed;
+    top:20px;
+    width:100%;
+    text-align:center;
+    z-index: 1;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 13px;
@@ -3500,6 +3509,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   margin: 0;
   border-left: none;
   border-right: none;
+  position: relative;
+  z-index: 3;
 }
 
 .navbar-brand {
@@ -3835,6 +3846,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 /* hero unit slider */
 .hero-unit-slider {
+  z-index: 2;
+  position: relative;
   /* hero unit with slick carousel */
 }
 .hero-unit-slider .carousel-inner > .item {

@@ -9,5 +9,3 @@ class ApplicationController < ActionController::Base
     @news = News.sample_all
   end
 end
-
-# http://www.tv.com/news/marvels-daredevil-season-1-review-netflix-142808444492/

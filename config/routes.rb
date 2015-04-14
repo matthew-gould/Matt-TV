@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   
   resources :favorites, only: [:create, :index, :destroy]
 
+  get '/search' => 'shows#search', as: 'search'
+
 end

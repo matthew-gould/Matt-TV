@@ -67,6 +67,18 @@ class Show < ActiveRecord::Base
     end
   end
 
+  def self.get_summary
+    show = Show.all
+    show.each do |x|
+      if x.summary == ""
+        show_id = x.db_id
+        info = HTTParty.get("https://api.themoviedb.org/3/tv/#{x.db_id}?api_key=#{Figaro.env.tmd_key}")
+        summary = info["overview"].squish
+        x.update!(summary: summary)
+      end
+    end
+  end
+
   def self.sample_all
     self.all.shuffle.uniq.first(6)
   end

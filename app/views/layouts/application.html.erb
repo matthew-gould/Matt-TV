@@ -18,20 +18,22 @@
         <div class="topbar">
           <ul class="list-inline top-nav">
           <div class="searchbox">
+            <form action="<%=search_path %>" method="GET">
             <div class="input-group input-group-sm">
-              <input type="text" class="form-control" placeholder="search ...">
+              <input type="text" class="form-control" placeholder="search ..." name="search">
               <span class="input-group-btn">
                 <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
               </span>
             </div>
+            </form>
           </div>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
-            <span class="sr-only">Toggle Navigation</span>
-            <i class="fa fa-bars"></i>
-          </button>
-          <a href="/" class="navbar-brand navbar-logo navbar-logo-smaller">
-            <img src="/assets/mtv_logo.png">
-          </a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+              <span class="sr-only">Toggle Navigation</span>
+              <i class="fa fa-bars"></i>
+            </button>
+            <a href="/" class="navbar-brand navbar-logo navbar-logo-smaller">
+              <img src="/assets/mtv_logo.png">
+            </a>
         </div>
 
         <!-- MAIN NAVIGATION -->

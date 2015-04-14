@@ -15,4 +15,9 @@ class ShowsController < ApplicationController
     @shows = Show.order(name: :asc)
     @favorites = current_user.favorites.pluck(:show_id)
   end
+
+  def search
+    @results = Show.search_name(params[:search])
+    @search_text = params[:search]
+  end
 end

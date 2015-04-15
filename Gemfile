@@ -18,6 +18,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'pg'
 gem 'pg_search'
+gem 'rails_12factor'
 
 group :development, :test do
   gem 'spring'

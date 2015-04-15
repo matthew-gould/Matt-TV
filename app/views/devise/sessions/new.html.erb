@@ -1,5 +1,36 @@
-<div class="container">
-  <div class="ticket-box">
-<%= render "devise/shared/links" %>
+<!DOCTYPE html>
+  <head>
+  </head>
+  
+  <body>
+  <!-- WRAPPER -->
+  <div class="wrapper">
+
+  <!-- HERO UNIT -->
+    <section class="hero-unit-slider">
+      <div id="carousel-hero" class="slick-carousel">
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <%= image_tag("gameofthrones.jpg", alt: "Slider Image") %>
+            <div class="carousel-caption">
+              <h2 class="hero-heading">PLEASE LOGIN</h2>
+              <p class="lead">You have to be logged in to view this page</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END HERO UNIT -->
+
+    <div class="container">
+      <div class="ticket-box">
+    <%= render "devise/shared/links" %>
+      </div>
+    </div>
+
   </div>
-</div>
+  <!-- END WRAPPER -->
+
+
+  </body>
+</html>

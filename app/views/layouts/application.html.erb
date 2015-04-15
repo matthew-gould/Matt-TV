@@ -57,11 +57,11 @@
             </li>
           <% if current_user %>
           <li>
-          <a rel="nofollow" data-method="delete" href="/users/sign_out"><img src="/assets/logout.jpg" height="25" width="80" /></a>
+          <a rel="nofollow" data-method="delete" href="/users/sign_out"><%= image_tag("logout.jpg", size: '80x25') %></a>
           </li>
           <% else %>
           <li>
-          <a href="/users/auth/facebook"><img src="/assets/login.jpg" height="27" width="80" /></a>
+          <a href="/users/auth/facebook"><%= image_tag("login.jpg", size: '80x25') %></a>
           </li>
           <% end %>
           </ul>

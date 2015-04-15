@@ -18,7 +18,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'pg'
 gem 'pg_search'
-gem 'rails_12factor'
 
 group :development, :test do
   gem 'spring'
@@ -36,3 +35,5 @@ group :test do
   gem 'simplecov'
   gem 'zonebie'
 end
+
+gem 'rails_12factor', group: :production

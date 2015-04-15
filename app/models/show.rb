@@ -13,7 +13,6 @@ class Show < ActiveRecord::Base
       },
     :using => [:tsearch, :dmetaphone, :trigram])
     
-
   def populate_shows #refactor this with an each ["item-box"]
     data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
 

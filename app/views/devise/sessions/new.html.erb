@@ -11,7 +11,7 @@
       <div id="carousel-hero" class="slick-carousel">
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <%= image_tag("gameofthrones.jpg", alt: "Slider Image") %>
+            <%= image_tag("got.jpg", alt: "Slider Image") %>
             <div class="carousel-caption">
               <h2 class="hero-heading">PLEASE LOGIN</h2>
               <p class="lead">You have to be logged in to view this page</p>
@@ -22,9 +22,12 @@
     </section>
     <!-- END HERO UNIT -->
 
-    <div class="container">
-      <div class="ticket-box">
-    <%= render "devise/shared/links" %>
+    
+    <div class="row">
+      <div class="col-sm-12 col-center-block">
+        <div class="ticket-box">
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
     </div>
 

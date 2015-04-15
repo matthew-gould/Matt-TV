@@ -52,18 +52,15 @@
                   <a href="/favorites">Favorites</a>
                 </li>
               </ul>
+            <% if current_user %>
             <li>
-              <a href="page-contacts.html">CONTACT</a>
+              <a rel="nofollow" data-method="delete" href="/users/sign_out"><%= image_tag("logout.jpg", size: '80x25') %></a>
             </li>
-          <% if current_user %>
-          <li>
-          <a rel="nofollow" data-method="delete" href="/users/sign_out"><%= image_tag("logout.jpg", size: '80x25') %></a>
-          </li>
-          <% else %>
-          <li>
-          <a href="/users/auth/facebook"><%= image_tag("login.jpg", size: '80x27') %></a>
-          </li>
-          <% end %>
+            <% else %>
+            <li>
+              <a href="/users/auth/facebook"><%= image_tag("login.jpg", size: '80x27') %></a>
+            </li>
+            <% end %>
           </ul>
         </div>
         <!-- END MAIN NAVIGATION -->

@@ -17,7 +17,7 @@ class Show < ActiveRecord::Base
   def populate_shows #refactor this with an each ["item-box"]
     data = Nokogiri::HTML(HTTParty.get("http://www.tv.com/lists/TVcom_editorial:list:2015-tv-schedule-midseason-premiere-dates/widget/premieres/").body)
 
-    181.times do |x|
+    181.times do |x| # data.css('.item-box').each do |x|
       show_name = data.css('div.name a')[x].text
       show_info = data.css('.show_info')[x].text.squish 
       info = show_info.split(" ")

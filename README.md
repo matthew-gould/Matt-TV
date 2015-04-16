@@ -1,6 +1,6 @@
 # Matt-TV
 
-https://matttv.herokuapp.com/
+https://matt-tv.herokuapp.com/
 
 Includes: JavaScript, Jquery, HTML/CSS, real-time scraping, real-time API calls, regular old ruby classes, activerecord and postgres.
 

@@ -31,6 +31,7 @@
             <% else %>
             <img src=<%= @show.pic_url %>><hr>
             <% end %>
+            <h2 class="section-heading">CURRENT SEASON INFO:</h2>
             <% if @season.last["air_date"] >= Time.now %>
               <p><strong>Premieres <%= @season.last["air_date"] %></strong></p> 
             <% end %>

@@ -31,7 +31,7 @@
             <% else %>
             <img src=<%= @show.pic_url %>><hr>
             <% end %>
-            <h2 class="section-heading">CURRENT SEASON INFO:</h2>
+            <h3 class="section-heading">SHOW INFO:</h3>
             <% if @season.last["air_date"] >= Time.now %>
               <p><strong>Premieres <%= @season.last["air_date"] %></strong></p> 
             <% end %>
@@ -60,7 +60,7 @@
             <% end %>
           </div><hr>
 
-          <h2 class="section-heading">CURRENT SEASON INFO:</h2>
+          <h3 class="section-heading">CURRENT SEASON INFO:</h3>
           <div class="row">
             <ul class="list-inline list-client-logo">
             <% @latest.each do |x| %>
@@ -77,7 +77,7 @@
           <% if @pics.count != 0 %>
           <section class="clients">
             <div class="container">
-              <h2 class="section-heading">PICTURES</h2>
+              <h3 class="section-heading">PICTURES</h3>
               <ul class="list-inline list-client-logo">
               <% @pics.each do |img| %>
               <div class="col-sm-4">

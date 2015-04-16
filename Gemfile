@@ -28,11 +28,9 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'factory_girl_rails'
   gem 'nokogiri'
-  gem 'coveralls', require: false
 end
 
 group :test do
-  gem 'simplecov'
   gem 'zonebie'
 end
 

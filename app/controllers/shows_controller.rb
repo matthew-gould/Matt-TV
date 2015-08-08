@@ -13,7 +13,11 @@ class ShowsController < ApplicationController
 
   def index
     @shows = Show.order(name: :asc)
-    @favorites = current_user.favorites.pluck(:show_id)
+    if current_user
+      @favorites = current_user.favorites.pluck(:show_id)
+    else
+      
+    end
   end
 
   def search

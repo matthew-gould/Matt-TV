@@ -20,7 +20,7 @@ gem 'pg'
 gem 'pg_search'
 
 group :development, :test do
-  gem 'spring'
+  gem 'spring', '1.3.4'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'

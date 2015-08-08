@@ -1,7 +1,9 @@
 class FavoritesController < ApplicationController
  
   def index
-    @shows = current_user.shows.order(name: :asc)
+    if current_user != nil
+      @shows = current_user.shows.order(name: :asc)
+    end
   end
 
   def create

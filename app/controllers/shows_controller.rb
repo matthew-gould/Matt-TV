@@ -2,7 +2,9 @@ class ShowsController < ApplicationController
 
   def show
     @show = Show.find_by(id: params[:id])
-    @favorites = current_user.favorites.pluck(:show_id)
+    if current_user
+      @favorites = current_user.favorites.pluck(:show_id)
+    end
     @info = Show.show_info(@show)
     @season = Show.season_info(@show)
     n = @season.last["season_number"]

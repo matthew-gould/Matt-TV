@@ -41,14 +41,16 @@
               <p>See more at <a href=<%= @info["homepage"] %> target="_blank"><%= @info["homepage"] %>.</a></p>
               <% end %>
 
-              <% if @favorites.include? @show.id %>
-          <%=form_tag favorite_path(@show), method: :delete %>
-            <button class="favorite-show btn btn-danger" data-id=<%= @show.id %> data-action="unfavorite">Unfavorite</button>
-          </form>
-          <% else %>
-          <%=form_tag favorites_path, method: :post %>
-            <button class="favorite-show btn btn-success" data-id=<%= @show.id %> data-action="favorite">Favorite</button>
-          </form>
+              <% if current_user %>
+                <% if @favorites.include? @show.id %>
+                  <%=form_tag favorite_path(@show), method: :delete %>
+                    <button class="favorite-show btn btn-danger" data-id=<%= @show.id %> data-action="unfavorite">Unfavorite</button>
+                  </form>
+                  <% else %>
+                  <%=form_tag favorites_path, method: :post %>
+                    <button class="favorite-show btn btn-success" data-id=<%= @show.id %> data-action="favorite">Favorite</button>
+                  </form>
+            <% end %>
           <% end %>
             </div>
             <% if @vids.count != 0 %>

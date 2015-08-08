@@ -15,8 +15,6 @@ class ShowsController < ApplicationController
     @shows = Show.order(name: :asc)
     if current_user
       @favorites = current_user.favorites.pluck(:show_id)
-    else
-      
     end
   end
 

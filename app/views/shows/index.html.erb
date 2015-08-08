@@ -52,7 +52,7 @@
                   <li><strong><%= show.time %></strong></li>
                   <li><strong><%= show.station %></strong></li>
                   </ul>
-                  <% if current_user != nil %>
+                  <% if current_user %>
                     <% if @favorites.include? show.id %>
                       <%=form_tag favorite_path(show), method: :delete %>
                         <button class="favorite-show btn btn-danger" data-id=<%= show.id %> data-action="unfavorite">Unfavorite</button>
@@ -81,7 +81,7 @@
                   <li><strong><%= show.time %></strong></li>
                   <li><strong><%= show.station %></strong></li>
                   </ul>
-                  <% if current_user != nil %>
+                  <% if current_user %>
                     <% if @favorites.include? show.id %>
                       <%=form_tag favorite_path(show), method: :delete %>
                         <button class="favorite-show btn btn-danger" data-id=<%= show.id %> data-action="unfavorite">Unfavorite</button>

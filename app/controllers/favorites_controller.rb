@@ -1,7 +1,7 @@
 class FavoritesController < ApplicationController
  
   def index
-    if current_user != nil
+    if current_user
       @shows = current_user.shows.order(name: :asc)
     end
   end
